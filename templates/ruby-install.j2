@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cd /usr/local/src
+tar -xvjf ruby-{{ ruby_version }}.tar.bz2
+cd ruby-{{ ruby_version }}/
+./configure --prefix=/usr/local
+make
+make install

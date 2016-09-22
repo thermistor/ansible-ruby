@@ -1,0 +1,53 @@
+---
+
+- name: Install dependencies for building ruby
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - build-essential
+    - curl
+    - git-core
+    - libcurl4-openssl-dev
+    - libffi-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - libyaml-dev
+    - python-software-properties
+    - sqlite3
+    - zlib1g-dev
+
+- name: Install dependencies for building ruby on 14.04
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - ruby2.0
+  when: ansible_distribution_version == '14.04'
+
+- name: Install dependencies for building ruby on 16.04
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - ruby2.3
+  when: ansible_distribution_version == '16.04'
+
+- name: Download the ruby source in /usr/local/src if not yet present
+  command: wget ftp://ftp.ruby-lang.org/pub/ruby/{{ ruby_major_minor }}/ruby-{{ ruby_version }}.tar.bz2 chdir=/usr/local/src creates=/usr/local/src/ruby-{{ ruby_version }}.tar.bz2
+
+- name: Upload the ruby install script
+  template: src=ruby-install.j2 dest=/usr/local/src/ruby-{{ ruby_version }}-install.sh owner=root group=root mode=0755
+
+- name: Configure gems so that docs are not generated
+  copy: src=gemrc dest=/etc/gemrc owner=root group=root mode=0644
+
+- name: Install ruby version {{ ruby_version }} from source
+  shell: /usr/local/src/ruby-{{ ruby_version }}-install.sh creates=/usr/local/src/ruby-{{ ruby_version }}/ruby
+  become: yes
+
+- name: Install core gems
+  gem: name={{ item }} state=latest user_install=no
+  with_items:
+    - rubygems-update
+    - bundler
+
+- name: Update rubygems
+  shell: gem update --system
