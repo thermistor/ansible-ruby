@@ -32,9 +32,10 @@
   when: ansible_distribution_version == '16.04'
 
 - name: Download the ruby source in /usr/local/src if not yet present
-  get_url: https://cache.ruby-lang.org/pub/ruby/{{ ruby_major_minor }}/ruby-{{ ruby_version }}.tar.bz2
-  dest: /usr/local/src/ruby-{{ ruby_version }}.tar.bz2
-  checksum: "{{ ruby_version_checksum }}"
+  get_url:
+    url: https://cache.ruby-lang.org/pub/ruby/{{ ruby_major_minor }}/ruby-{{ ruby_version }}.tar.bz2
+    dest: /usr/local/src/ruby-{{ ruby_version }}.tar.bz2
+    checksum: "{{ ruby_version_checksum }}"
 
 - name: Upload the ruby install script
   template: src=ruby-install.j2 dest=/usr/local/src/ruby-{{ ruby_version }}-install.sh owner=root group=root mode=0755
