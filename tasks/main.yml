@@ -2,7 +2,7 @@
 
 - name: Install dependencies for building ruby
   apt:
-    state: latest
+    state: present
     name:
       - build-essential
       - curl
@@ -21,17 +21,17 @@
       - zlib1g-dev
 
 - name: Install dependencies for building ruby on 14.04
-  apt: pkg=ruby2.0 state=latest
+  apt: pkg=ruby2.0 state=present
   with_items:
     - ruby2.0
   when: ansible_distribution_version == '14.04'
 
 - name: Install dependencies for building ruby on 16.04
-  apt: pkg=ruby2.3 state=latest
+  apt: pkg=ruby2.3 state=present
   when: ansible_distribution_version == '16.04'
 
 - name: Install dependencies for building ruby on 18.04
-  apt: pkg=ruby2.5 state=latest
+  apt: pkg=ruby2.5 state=present
   when: ansible_distribution_version == '18.04'
 
 - name: Download the ruby source in /usr/local/src if not yet present
@@ -51,7 +51,7 @@
   become: yes
 
 - name: Install core gems
-  gem: name={{ item }} state=latest user_install=no
+  gem: name={{ item }} state=present user_install=no
   with_items:
     - rubygems-update
     - bundler
