@@ -1,0 +1,38 @@
+---
+- name: Install dependencies for building ruby on CentOS
+  yum:
+    state: present
+    name:
+      - epel-release
+      - gcc
+      - gcc-c++
+      - make
+      - curl
+      - git-core
+      - libcurl-devel
+      - libffi-devel
+      - jemalloc-devel
+      - readline-devel
+      # - libsqlite3x-dev
+      - openssl-devel
+      # - libxml2-devel
+      # - libxslt-devel
+      - libyaml-devel
+      # - sqlite
+      - zlib-devel
+      # ----------------------------------
+      # - build-essential
+      # - curl
+      # - git-core
+      # - libcurl4-openssl-dev
+      # - libffi-dev
+      # - libjemalloc-dev
+      # - libreadline-dev
+      # - libsqlite3-dev
+      # - libssl-dev
+      # - libxml2-dev
+      # - libxslt1-dev
+      # - libyaml-dev
+      # - python3-software-properties
+      # - sqlite3
+      # - zlib1g-dev

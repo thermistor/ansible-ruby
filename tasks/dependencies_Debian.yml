@@ -1,0 +1,34 @@
+---
+- name: Install dependencies for building ruby on Ubuntu
+  apt:
+    state: present
+    name:
+      - build-essential
+      - curl
+      - git-core
+      - libcurl4-openssl-dev
+      - libffi-dev
+      - libjemalloc-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - libssl-dev
+      - libxml2-dev
+      - libxslt1-dev
+      - libyaml-dev
+      - python3-software-properties
+      - sqlite3
+      - zlib1g-dev
+
+- name: Install dependencies for building ruby on Ubuntu 14.04
+  apt: pkg=ruby2.0 state=present
+  with_items:
+    - ruby2.0
+  when: ansible_distribution_version == '14.04'
+
+- name: Install dependencies for building ruby on Ubuntu 16.04
+  apt: pkg=ruby2.3 state=present
+  when: ansible_distribution_version == '16.04'
+
+- name: Install dependencies for building ruby on Ubuntu 18.04
+  apt: pkg=ruby2.5 state=present
+  when: ansible_distribution_version == '18.04'

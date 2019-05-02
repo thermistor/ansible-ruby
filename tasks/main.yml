@@ -1,38 +1,6 @@
 ---
-
-- name: Install dependencies for building ruby
-  apt:
-    state: present
-    name:
-      - build-essential
-      - curl
-      - git-core
-      - libcurl4-openssl-dev
-      - libffi-dev
-      - libjemalloc-dev
-      - libreadline-dev
-      - libsqlite3-dev
-      - libssl-dev
-      - libxml2-dev
-      - libxslt1-dev
-      - libyaml-dev
-      - python3-software-properties
-      - sqlite3
-      - zlib1g-dev
-
-- name: Install dependencies for building ruby on 14.04
-  apt: pkg=ruby2.0 state=present
-  with_items:
-    - ruby2.0
-  when: ansible_distribution_version == '14.04'
-
-- name: Install dependencies for building ruby on 16.04
-  apt: pkg=ruby2.3 state=present
-  when: ansible_distribution_version == '16.04'
-
-- name: Install dependencies for building ruby on 18.04
-  apt: pkg=ruby2.5 state=present
-  when: ansible_distribution_version == '18.04'
+- name: Manage OS-specific dependencies.
+  include: "dependencies_{{ ansible_os_family }}.yml"
 
 - name: Download the ruby source in /usr/local/src if not yet present
   get_url:
@@ -47,14 +15,18 @@
   copy: src=gemrc dest=/etc/gemrc owner=root group=root mode=0644
 
 - name: Install ruby version {{ ruby_version }} from source
-  shell: /usr/local/src/ruby-{{ ruby_version }}-install.sh creates=/usr/local/src/ruby-{{ ruby_version }}/ruby
+  command: /usr/local/src/ruby-{{ ruby_version }}-install.sh creates=/usr/local/src/ruby-{{ ruby_version }}/ruby
   become: yes
 
 - name: Install core gems
-  gem: name={{ item }} state=present user_install=no
+  gem:
+    state: present
+    user_install: no
+    executable: /usr/local/bin/gem
+    name: "{{ item }}"
   with_items:
     - rubygems-update
     - bundler
 
 - name: Update rubygems
-  shell: gem update --system
+  command: /usr/local/bin/gem update --system
