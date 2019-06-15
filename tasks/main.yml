@@ -18,15 +18,16 @@
   command: /usr/local/src/ruby-{{ ruby_version }}-install.sh creates=/usr/local/src/ruby-{{ ruby_version }}/ruby
   become: yes
 
-- name: Install core gems
+- name: Install bundler gem
   gem:
-    state: present
+    name: bundler
+    user_install: no
+    version: "{{ ruby_bundler_version }}"
+    executable: /usr/local/bin/gem
+
+- name: Install latest version of rubygems
+  gem:
+    name: rubygems-update
+    state: latest
     user_install: no
     executable: /usr/local/bin/gem
-    name: "{{ item }}"
-  with_items:
-    - rubygems-update
-    - bundler
-
-- name: Update rubygems
-  command: /usr/local/bin/gem update --system
