@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd /usr/local/src
-tar -xvjf ruby-{{ ruby_version }}.tar.bz2
+tar -xvjf ruby-{{ ruby_version }}.tar.xz
 cd ruby-{{ ruby_version }}/
 ./configure --prefix=/usr/local --with-jemalloc
 make
