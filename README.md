@@ -4,21 +4,17 @@ This builds ruby on recent Ubuntu LTS or CentOS.
 
 ## Example playbook
 
-Basic setup which installs the latest ruby and latest bundler gem:
+Basic setup which installs the latest ruby (3.1.2) and latest bundler gem (2.3.20):
 
     - role: ruby
 
-How to specify the ruby version:
+An example showing options you can set (NOTE: checksum is for xz file extension for versions > 3.0, and bz2 for lower versions).
 
     - role: ruby
-      ruby_major_minor: 2.5
-      ruby_version: 2.5.1
-      ruby_version_checksum: sha256:0f5d20f012baca865381a055e73f22db814615fee3c68083182cb78a4b3b30cb
-
-How to specify a specific bundler version:
-
-    - role: ruby
-      ruby_bundler_version: 2.0.1
+      ruby_major_minor: 3.1
+      ruby_version: 3.1.2
+      ruby_version_checksum: sha256:ca10d017f8a1b6d247556622c841fc56b90c03b1803f87198da1e4fd3ec3bf2a
+      ruby_bundler_version: 2.3.20
 
 ## License
 
