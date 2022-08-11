@@ -3,6 +3,7 @@ galaxy_info:
   author: Weston Triemstra
   description: Configure ruby
   company: Netsign
+  github_branch: main
 
   license: license (MIT)
 
