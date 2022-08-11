@@ -1,6 +1,6 @@
 ---
-ruby_major_minor: 2.6
-ruby_version: 2.6.3
-ruby_version_checksum: sha256:577fd3795f22b8d91c1d4e6733637b0394d4082db659fccf224c774a2b1c82fb
-ruby_bundler_version: 2.0.2
+ruby_major_minor: 3.1
+ruby_version: 3.1.2
+ruby_version_checksum: sha256:ca10d017f8a1b6d247556622c841fc56b90c03b1803f87198da1e4fd3ec3bf2a
+ruby_bundler_version: 2.3.20
 ruby_source_extension: "{{ 'xz' if ruby_major_minor >= 3.0 else 'bz2' }}"
