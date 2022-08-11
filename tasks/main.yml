@@ -4,8 +4,8 @@
 
 - name: Download the ruby source in /usr/local/src if not yet present
   get_url:
-    url: https://cache.ruby-lang.org/pub/ruby/{{ ruby_major_minor }}/ruby-{{ ruby_version }}.tar.bz2
-    dest: /usr/local/src/ruby-{{ ruby_version }}.tar.bz2
+    url: https://cache.ruby-lang.org/pub/ruby/{{ ruby_major_minor }}/ruby-{{ ruby_version }}.tar.{{ ruby_source_extension }}
+    dest: /usr/local/src/ruby-{{ ruby_version }}.tar.{{ ruby_source_extension }}
     checksum: "{{ ruby_version_checksum }}"
 
 - name: Upload the ruby install script
