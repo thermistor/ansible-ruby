@@ -32,3 +32,7 @@
 - name: Install dependencies for building ruby on Ubuntu 18.04
   apt: pkg=ruby2.5 state=present
   when: ansible_distribution_version == '18.04'
+
+- name: Install dependencies for building ruby on Ubuntu 22.04
+  apt: pkg=ruby3.0 state=present
+  when: ansible_distribution_version == '22.04'
