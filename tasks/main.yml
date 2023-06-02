@@ -1,6 +1,6 @@
 ---
 - name: Manage OS-specific dependencies.
-  include: "dependencies_{{ ansible_os_family }}.yml"
+  include_tasks: "dependencies_{{ ansible_os_family }}.yml"
 
 - name: Download the ruby source in /usr/local/src if not yet present
   get_url:
