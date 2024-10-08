@@ -1,6 +1,6 @@
 ---
 - name: Install dependencies for building ruby on CentOS
-  yum:
+  ansible.builtin.yum:
     state: present
     name:
       - epel-release

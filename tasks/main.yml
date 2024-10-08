@@ -1,33 +1,46 @@
 ---
 - name: Manage OS-specific dependencies.
-  include_tasks: "dependencies_{{ ansible_os_family }}.yml"
+  ansible.builtin.include_tasks: "dependencies_{{ ansible_os_family }}.yml"
 
 - name: Download the ruby source in /usr/local/src if not yet present
-  get_url:
+  ansible.builtin.get_url:
     url: https://cache.ruby-lang.org/pub/ruby/{{ ruby_major_minor }}/ruby-{{ ruby_version }}.tar.{{ ruby_source_extension }}
     dest: /usr/local/src/ruby-{{ ruby_version }}.tar.{{ ruby_source_extension }}
     checksum: "{{ ruby_version_checksum }}"
+    mode: '0644'
 
 - name: Upload the ruby install script
-  template: src=ruby-install.j2 dest=/usr/local/src/ruby-{{ ruby_version }}-install.sh owner=root group=root mode=0755
+  ansible.builtin.template:
+    src: ruby-install.j2
+    dest: /usr/local/src/ruby-{{ ruby_version }}-install.sh
+    owner: root
+    group: root
+    mode: '0755'
 
 - name: Configure gems so that docs are not generated
-  copy: src=gemrc dest=/etc/gemrc owner=root group=root mode=0644
+  ansible.builtin.copy:
+    src: gemrc
+    dest: /etc/gemrc
+    owner: root
+    group: root
+    mode: '0644'
 
-- name: Install ruby version {{ ruby_version }} from source
-  command: /usr/local/src/ruby-{{ ruby_version }}-install.sh creates=/usr/local/src/ruby-{{ ruby_version }}/ruby
-  become: yes
+- name: Install ruby version from source
+  ansible.builtin.command:
+    cmd: /usr/local/src/ruby-{{ ruby_version }}-install.sh
+    creates: /usr/local/src/ruby-{{ ruby_version }}/ruby
+  become: true
 
 - name: Install bundler gem
-  gem:
+  community.general.gem:
     name: bundler
-    user_install: no
+    user_install: false
     version: "{{ ruby_bundler_version }}"
     executable: /usr/local/bin/gem
 
 - name: Install latest version of rubygems
-  gem:
+  community.general.gem:
     name: rubygems-update
     state: latest
-    user_install: no
+    user_install: false
     executable: /usr/local/bin/gem

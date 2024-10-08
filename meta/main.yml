@@ -1,5 +1,7 @@
 ---
 galaxy_info:
+  role_name: ruby
+  namespace: thermistor
   author: Weston Triemstra
   description: Configure ruby
   company: Netsign
@@ -7,15 +9,14 @@ galaxy_info:
 
   license: license (MIT)
 
-  min_ansible_version: 1.2
+  min_ansible_version: '2.16'
   platforms:
-  - name: EL
-    versions:
-      - 7
-  - name: Ubuntu
-    versions:
-    - xenial
-    - bionic
+    - name: EL
+      versions:
+        - 'all'
+    - name: Ubuntu
+      versions:
+        - jammy
 
   galaxy_tags:
     - ruby

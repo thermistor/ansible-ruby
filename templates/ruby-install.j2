@@ -3,6 +3,7 @@
 cd /usr/local/src
 tar -xvf ruby-{{ ruby_version }}.tar.{{ ruby_source_extension }}
 cd ruby-{{ ruby_version }}/
-./configure --prefix=/usr/local --with-jemalloc
+./configure --prefix=/usr/local --with-jemalloc --disable-install-doc \
+  {% if ruby_major_minor >= 3.2 %}--enable-yjit{% endif %}
 make
 make install
