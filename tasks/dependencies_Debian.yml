@@ -16,6 +16,7 @@
       - libxslt1-dev
       - libyaml-dev
       - python3-software-properties
+      - rustc
       - sqlite3
       - zlib1g-dev
 

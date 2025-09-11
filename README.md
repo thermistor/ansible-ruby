@@ -1,20 +1,20 @@
 # Ansible role for ruby
 
-This builds ruby on recent Ubuntu LTS or CentOS.
+This builds ruby on recent Ubuntu LTS (CentOS needs testing).
 
 ## Example playbook
 
-Basic setup which installs the latest ruby (3.1.2) and latest bundler gem (2.3.20):
+Basic setup which installs the latest ruby (3.4.5) and latest bundler gem (2.7.2) with jemalloc and yjit support:
 
     - role: ruby
 
 An example showing options you can set (NOTE: checksum is for xz file extension for versions > 3.0, and bz2 for lower versions).
 
     - role: ruby
-      ruby_major_minor: 3.1
-      ruby_version: 3.1.2
-      ruby_version_checksum: sha256:ca10d017f8a1b6d247556622c841fc56b90c03b1803f87198da1e4fd3ec3bf2a
-      ruby_bundler_version: 2.3.20
+      ruby_major_minor: 3.4
+      ruby_version: 3.4.5
+      ruby_version_checksum: sha256:7b3a905b84b8777aa29f557bada695c3ce108390657e614d2cc9e2fb7e459536
+      ruby_bundler_version: 2.7.2
 
 ## License
 
