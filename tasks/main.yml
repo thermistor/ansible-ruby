@@ -1,6 +1,6 @@
 ---
 - name: Manage OS-specific dependencies.
-  ansible.builtin.include_tasks: "dependencies_{{ ansible_os_family }}.yml"
+  ansible.builtin.include_tasks: "dependencies_{{ ansible_facts['os_family'] }}.yml"
 
 - name: Download the source for ruby {{ ruby_version }} in /usr/local/src if not yet present
   ansible.builtin.get_url:

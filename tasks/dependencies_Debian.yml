@@ -24,4 +24,4 @@
   ansible.builtin.apt:
     pkg: ruby3.0
     state: present
-  when: ansible_distribution_version == '22.04'
+  when: ansible_facts['distribution_version'] == '22.04'
