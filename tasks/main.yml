@@ -31,6 +31,7 @@
     creates: /usr/local/src/ruby-{{ ruby_version }}/ruby
   become: true
 
+# RubyGems 4 (Ruby 4.0) needs community.general >= 13.0.0, earlier versions call the removed `gem query`
 - name: Install bundler gem version {{ ruby_bundler_version }}
   community.general.gem:
     name: bundler
@@ -38,9 +39,9 @@
     version: "{{ ruby_bundler_version }}"
     executable: /usr/local/bin/gem
 
-- name: Install latest version of rubygems
-  community.general.gem:
-    name: rubygems-update
-    state: latest
-    user_install: false
-    executable: /usr/local/bin/gem
+# The gem module can only install the rubygems-update gem, `gem update --system` also runs it
+- name: Update rubygems to the latest version
+  ansible.builtin.command:
+    cmd: /usr/local/bin/gem update --system
+  register: ruby_rubygems_update
+  changed_when: "'Latest version already installed' not in ruby_rubygems_update.stdout"
