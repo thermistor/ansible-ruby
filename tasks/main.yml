@@ -2,7 +2,7 @@
 - name: Manage OS-specific dependencies.
   ansible.builtin.include_tasks: "dependencies_{{ ansible_facts['os_family'] }}.yml"
 
-- name: Download the source for ruby {{ ruby_version }} in /usr/local/src if not yet present
+- name: Download the ruby source into /usr/local/src if not yet present for version {{ ruby_version }}
   ansible.builtin.get_url:
     url: https://cache.ruby-lang.org/pub/ruby/{{ ruby_major_minor }}/ruby-{{ ruby_version }}.tar.{{ ruby_source_extension }}
     dest: /usr/local/src/ruby-{{ ruby_version }}.tar.{{ ruby_source_extension }}
@@ -25,7 +25,7 @@
     group: root
     mode: '0644'
 
-- name: Install ruby version {{ ruby_version }} from source
+- name: Install ruby from source version {{ ruby_version }}
   ansible.builtin.command:
     cmd: /usr/local/src/ruby-{{ ruby_version }}-install.sh
     creates: /usr/local/src/ruby-{{ ruby_version }}/ruby
