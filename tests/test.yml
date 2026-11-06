@@ -1,0 +1,6 @@
+---
+- name: Test the ruby role
+  hosts: localhost
+  remote_user: root
+  roles:
+    - role: thermistor.ruby
